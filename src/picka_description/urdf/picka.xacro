@@ -1,0 +1,382 @@
+<?xml version="1.0" ?>
+<robot name="picka" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find picka_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find picka_description)/urdf/picka.ros2control" />
+<xacro:include filename="$(find picka_description)/urdf/picka.gazebo" />
+
+<!-- Gazebo treats this root link as the fixed mounting frame. -->
+<link name="world"/>
+
+<link name="base_link">
+  <inertial>
+    <origin xyz="-0.07600828126224177 -1.1028484547273465e-17 0.030513561198824268" rpy="0 0 0"/>
+    <mass value="1.6184302970897686"/>
+    <inertia ixx="0.002199" iyy="0.003083" izz="0.004833" ixy="-0.0" iyz="-0.0" ixz="-7e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://picka_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="white"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.075000 0 0.044055" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.150000 0.120000 0.048110"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="stepper_1">
+  <inertial>
+    <origin xyz="0.00013214863232474672 2.2369005281418757e-08 0.0237707738780129" rpy="0 0 0"/>
+    <mass value="0.640145595765002"/>
+    <inertia ixx="0.000213" iyy="0.000214" izz="0.000178" ixy="-0.0" iyz="-0.0" ixz="2e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.073 -0.0 -0.0211" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://picka_description/meshes/stepper_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="black"/>
+  </visual>
+  <collision>
+    <origin xyz="0.003100 0 0.033750" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.048400 0.042200 0.067500"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="shoulder_1">
+  <inertial>
+    <origin xyz="-3.509113913983952e-05 -0.006280453652184013 0.0452397185954387" rpy="0 0 0"/>
+    <mass value="0.9843584714949085"/>
+    <inertia ixx="0.001813" iyy="0.001608" izz="0.000505" ixy="0.0" iyz="0.000183" ixz="-1e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.073 -0.0 -0.0936" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://picka_description/meshes/shoulder_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="white"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0.060000" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.090000 0.089945 0.119999"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="backarm_1">
+  <inertial>
+    <origin xyz="-0.0068261814156114625 -0.023017959996843865 0.024155379857349113" rpy="0 0 0"/>
+    <mass value="1.4765773134392393"/>
+    <inertia ixx="0.001881" iyy="0.001407" izz="0.001004" ixy="-0.000139" iyz="0.000657" ixz="0.000145"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.063 0.012153 -0.1886" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://picka_description/meshes/backarm_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="white"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.001363 -0.023909 0.036920" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.051274 0.100254 0.126103"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="forearm_servo_1">
+  <inertial>
+    <origin xyz="0.07542497257237987 0.0024564923108638115 -0.19079005842647173" rpy="0 0 0"/>
+    <mass value="0.24393896928790093"/>
+    <inertia ixx="4.2e-05" iyy="6.2e-05" izz="3.9e-05" ixy="0.0" iyz="6e-06" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.148 0.067592 -0.448173" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://picka_description/meshes/forearm_servo_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="black"/>
+  </visual>
+  <collision>
+    <origin xyz="0.072664 0.002560 -0.189830" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.044551 0.030195 0.058513"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="forearm_horn_1">
+  <inertial>
+    <origin xyz="0.00031214928703186817 -1.80489200271583e-06 -6.734333586888575e-07" rpy="0 0 0"/>
+    <mass value="0.005099610361289279"/>
+    <inertia ixx="3.400760316e-07" iyy="1.788701865e-07" izz="1.789721940e-07" ixy="0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.097599 0.067399 -0.26698" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://picka_description/meshes/forearm_horn_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="white"/>
+  </visual>
+  <collision>
+    <origin xyz="0.001236 -0.000002 -0.000001" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.004572 0.020006 0.020000"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="forearm_1">
+  <inertial>
+    <origin xyz="-0.0077310757581627865 0.014783962849126614 0.006712029893361671" rpy="0 0 0"/>
+    <mass value="0.35436967779806794"/>
+    <inertia ixx="0.000203" iyy="8.1e-05" izz="0.000145" ixy="-0.0" iyz="-1.8e-05" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.098599 0.067394 -0.266981" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://picka_description/meshes/forearm_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="white"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.007787 0.024534 0.014528" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.020425 0.090178 0.063884"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="wrist_servo_1">
+  <inertial>
+    <origin xyz="9.703710668790277e-05 0.018843304838399556 0.004925875307550398" rpy="0 0 0"/>
+    <mass value="0.24393896928790093"/>
+    <inertia ixx="6.4e-05" iyy="4.2e-05" izz="3.8e-05" ixy="-0.0" iyz="1e-06" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.106316 0.03239 -0.27801" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://picka_description/meshes/wrist_servo_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="black"/>
+  </visual>
+  <collision>
+    <origin xyz="0.000025 0.018567 0.007191" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.020025 0.046023 0.053007"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="wrist_horn_1">
+  <inertial>
+    <origin xyz="-1.3954395602921998e-06 -0.00030311281448825236 -7.53022390672653e-05" rpy="0 0 0"/>
+    <mass value="0.005099610361289279"/>
+    <inertia ixx="1.944702312e-07" iyy="3.382793386e-07" izz="1.965049757e-07" ixy="0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.106094 -0.008349 -0.298556" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://picka_description/meshes/wrist_horn_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="white"/>
+  </visual>
+  <collision>
+    <origin xyz="0 -0.000547 0" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.020010 0.007874 0.019890"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="wrist_1">
+  <inertial>
+    <origin xyz="0.00010947347127863993 0.021543238113941238 0.003562231696321305" rpy="0 0 0"/>
+    <mass value="0.3250047398469607"/>
+    <inertia ixx="0.000174" iyy="9.4e-05" izz="0.000178" ixy="-0.0" iyz="-1e-06" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.106089 -0.009319 -0.298798" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://picka_description/meshes/wrist_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="white"/>
+  </visual>
+  <collision>
+    <origin xyz="0.000085 0.034621 0.004089" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.050169 0.085409 0.057686"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="right_gripper_1">
+  <inertial>
+    <origin xyz="0.0007000144290990606 0.01647211065136825 0.008229928153043464" rpy="0 0 0"/>
+    <mass value="0.04573780851018126"/>
+    <inertia ixx="1.5e-05" iyy="3e-06" izz="1.5e-05" ixy="1e-06" iyz="-3e-06" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.095715 -0.077566 -0.305597" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://picka_description/meshes/right_gripper_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="white"/>
+  </visual>
+  <collision>
+    <origin xyz="0.000790 0.020403 0.009210" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.023580 0.066023 0.023741"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="left_gripper_1">
+  <inertial>
+    <origin xyz="-0.000568772523196967 0.016234344884142007 0.00817057661094861" rpy="0 0 0"/>
+    <mass value="0.04681081227386463"/>
+    <inertia ixx="1.4e-05" iyy="3e-06" izz="1.5e-05" ixy="-1e-06" iyz="-3e-06" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.115925 -0.07767 -0.305623" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://picka_description/meshes/left_gripper_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="white"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.000951 0.020398 0.009209" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.023741 0.065859 0.023700"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="bracket_1">
+  <inertial>
+    <origin xyz="6.661338147750939e-16 4.861780449086804e-07 -0.005999721734492688" rpy="0 0 0"/>
+    <mass value="0.6175977354191365"/>
+    <inertia ixx="0.000589" iyy="0.000589" izz="0.001042" ixy="0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.073 -0.0 -0.0886" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://picka_description/meshes/bracket_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="white"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 -0.012500" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.100000 0.100000 0.035000"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="world_fixed_joint" type="fixed">
+  <!-- The original CAD mesh bottom is 0.02 m above base_link. -->
+  <origin xyz="0 0 -0.02" rpy="0 0 0"/>
+  <parent link="world"/>
+  <child link="base_link"/>
+</joint>
+
+<joint name="base_to_stepper_joint" type="fixed">
+  <origin xyz="-0.073 0.0 0.0211" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="stepper_1"/>
+</joint>
+
+<joint name="bracket_to_shoulder_joint" type="fixed">
+  <origin xyz="0.0 0.0 0.005" rpy="0 0 0"/>
+  <parent link="bracket_1"/>
+  <child link="shoulder_1"/>
+</joint>
+
+<joint name="shoulder_joint" type="revolute">
+  <origin xyz="0.01 -0.012153 0.095" rpy="0 0 0"/>
+  <parent link="shoulder_1"/>
+  <child link="backarm_1"/>
+  <axis xyz="-1.0 0.0 0.0"/>
+  <limit upper="1.570796" lower="-0.785398" effort="100" velocity="1.5"/>
+  <dynamics damping="0.20" friction="0.05"/>
+</joint>
+
+<joint name="backarm_to_forearm_servo_joint" type="fixed">
+  <origin xyz="-0.085 -0.055439 0.259573" rpy="0 0 0"/>
+  <parent link="backarm_1"/>
+  <child link="forearm_servo_1"/>
+</joint>
+
+<joint name="elbow_joint" type="revolute">
+  <origin xyz="0.050401 0.000193 -0.181193" rpy="0 0 0"/>
+  <parent link="forearm_servo_1"/>
+  <child link="forearm_horn_1"/>
+  <axis xyz="1 0 0"/>
+  <limit upper="2.094395" lower="-0.087266" effort="100" velocity="1.5"/>
+  <dynamics damping="0.20" friction="0.05"/>
+</joint>
+
+<joint name="elbow_horn_to_forearm_joint" type="fixed">
+  <origin xyz="-0.001 5e-06 1e-06" rpy="0 0 0"/>
+  <parent link="forearm_horn_1"/>
+  <child link="forearm_1"/>
+</joint>
+
+<joint name="forearm_to_wrist_servo_joint" type="fixed">
+  <origin xyz="-0.007717 0.035004 0.011029" rpy="0 0 0"/>
+  <parent link="forearm_1"/>
+  <child link="wrist_servo_1"/>
+</joint>
+
+<joint name="wrist_joint" type="revolute">
+  <origin xyz="0.000222 0.040739 0.020546" rpy="0 0 0"/>
+  <parent link="wrist_servo_1"/>
+  <child link="wrist_horn_1"/>
+  <axis xyz="-0.005 -0.970284 -0.241919"/>
+  <limit upper="1.396263" lower="-1.396263" effort="100" velocity="1.5"/>
+  <dynamics damping="0.15" friction="0.04"/>
+</joint>
+
+<joint name="wrist_horn_to_wrist_joint" type="fixed">
+  <origin xyz="5e-06 0.00097 0.000242" rpy="0 0 0"/>
+  <parent link="wrist_horn_1"/>
+  <child link="wrist_1"/>
+</joint>
+
+<joint name="right_gripper_joint" type="revolute">
+  <origin xyz="0.010374 0.068247 0.006799" rpy="0 0 0"/>
+  <parent link="wrist_1"/>
+  <child link="right_gripper_1"/>
+  <axis xyz="0.0 0.241922 -0.970296"/>
+  <limit upper="0.523599" lower="0.0" effort="100" velocity="2.0"/>
+  <dynamics damping="0.05" friction="0.02"/>
+</joint>
+
+<joint name="left_gripper_joint" type="revolute">
+  <origin xyz="-0.009836 0.068351 0.006825" rpy="0 0 0"/>
+  <parent link="wrist_1"/>
+  <child link="left_gripper_1"/>
+  <axis xyz="0.0 0.241922 -0.970296"/>
+  <limit upper="0.0" lower="-0.523599" effort="100" velocity="2.0"/>
+  <mimic joint="right_gripper_joint" multiplier="-1.0" offset="0.0"/>
+  <dynamics damping="0.05" friction="0.02"/>
+</joint>
+
+<joint name="base_joint" type="revolute">
+  <origin xyz="0.0 0.0 0.0675" rpy="0 0 0"/>
+  <parent link="stepper_1"/>
+  <child link="bracket_1"/>
+  <axis xyz="0.0 0.0 1.0"/>
+  <limit upper="2.792527" lower="-2.792527" effort="100" velocity="1.0"/>
+  <dynamics damping="0.25" friction="0.08"/>
+</joint>
+
+</robot>

@@ -1,0 +1,13 @@
+float64 x
+float64 y
+float64 z
+float64[4] initial_guess
+
+---
+
+bool success
+string message
+float64[4] joint_angles
+float64 position_error
+int32 iterations
+

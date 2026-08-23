@@ -1,0 +1,7 @@
+serial_bridge:
+  ros__parameters:
+    port: /dev/ttyUSB0
+    baud: 115200
+    command_topic: /arm_controller/joint_trajectory
+    gripper_topic: /gripper/command
+    reconnect_seconds: 2.0

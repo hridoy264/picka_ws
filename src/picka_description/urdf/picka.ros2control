@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<robot name="picka" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <ros2_control name="GazeboSimSystem" type="system">
+    <hardware>
+      <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+    </hardware>
+
+    <joint name="base_joint">
+      <command_interface name="position">
+        <param name="min">-2.792527</param>
+        <param name="max">2.792527</param>
+      </command_interface>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+
+    <joint name="shoulder_joint">
+      <command_interface name="position">
+        <param name="min">-0.785398</param>
+        <param name="max">1.570796</param>
+      </command_interface>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+
+    <joint name="elbow_joint">
+      <command_interface name="position">
+        <param name="min">0.0</param>
+        <param name="max">2.094395</param>
+      </command_interface>
+
+      <state_interface name="position">
+        <param name="initial_value">0.087266</param>
+      </state_interface>
+
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="wrist_joint">
+      <command_interface name="position">
+        <param name="min">-1.396263</param>
+        <param name="max">1.396263</param>
+      </command_interface>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+
+    <joint name="right_gripper_joint">
+      <command_interface name="position">
+        <param name="min">0.0</param>
+        <param name="max">0.523599</param>
+      </command_interface>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+
+    <!-- Passive finger. Its URDF mimic relationship applies -1 times the
+         right finger angle; no command interface is exposed. -->
+    <joint name="left_gripper_joint">
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+  </ros2_control>
+
+</robot>
